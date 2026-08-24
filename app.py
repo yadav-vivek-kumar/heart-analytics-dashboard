@@ -2,16 +2,31 @@
 Google HEART & UX Analytics Suite - Main Streamlit Application
 """
 import os
+import sys
 import streamlit as st
 import pandas as pd
 
-from data_loader import load_all_data, compute_heart_kpis, DEFAULT_EXCEL_PATH
-from components.kpi_cards import render_heart_kpi_cards
-from components.heatmap_studio import render_heatmap_studio
-from components.heart_dashboard import render_heart_dashboard
-from components.risk_analyzer import render_risk_analyzer
-from components.user_explorer import render_user_explorer
-from components.sheet_viewer import render_sheet_viewer
+# Ensure current directory is in Python path for Streamlit Cloud container
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+
+try:
+    from data_loader import load_all_data, compute_heart_kpis, DEFAULT_EXCEL_PATH
+    from components.kpi_cards import render_heart_kpi_cards
+    from components.heatmap_studio import render_heatmap_studio
+    from components.heart_dashboard import render_heart_dashboard
+    from components.risk_analyzer import render_risk_analyzer
+    from components.user_explorer import render_user_explorer
+    from components.sheet_viewer import render_sheet_viewer
+except ModuleNotFoundError:
+    from data_loader import load_all_data, compute_heart_kpis, DEFAULT_EXCEL_PATH
+    from kpi_cards import render_heart_kpi_cards
+    from heatmap_studio import render_heatmap_studio
+    from heart_dashboard import render_heart_dashboard
+    from risk_analyzer import render_risk_analyzer
+    from user_explorer import render_user_explorer
+    from sheet_viewer import render_sheet_viewer
 
 # -------------------------------------------------------------
 # 1. Page Configuration
